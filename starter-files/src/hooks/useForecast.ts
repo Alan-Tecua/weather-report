@@ -30,7 +30,14 @@ const useForecast = () => {
       // `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&untis=metric&appid=${process.env.REACT_APP_API_KEY}` --> gives the weather
     )
       .then((response) => response.json())
-      .then((data) => setForecast(data))
+      // .then((data) => setForecast(data)) --> give all data
+      .then((data) => {
+        const forecastData = {
+          ...data.city,
+          list: data.list.slice(0, 16),
+        }
+        setForecast(forecastData)
+      })
     // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
   }
   const onSubmit = () => {

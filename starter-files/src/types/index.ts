@@ -1,4 +1,4 @@
-import { NumberLiteralType } from 'typescript'
+// import { NumberLiteralType } from 'typescript'
 
 export type optionType = {
   name: string
