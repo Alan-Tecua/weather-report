@@ -1,8 +1,10 @@
 import { ChangeEvent, useState } from 'react'
+import { optionType } from './types'
 
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>('')
-  const [options, setOptions] = useState<[]>()
+
+  const [options, setOptions] = useState<[]>([])
 
   const getSearchOptions = (value: string) => {
     fetch(
@@ -23,6 +25,8 @@ const App = (): JSX.Element => {
     getSearchOptions(value)
   }
 
+  const onOptionSelect = (option: optionType) => {}
+
   // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 
   return (
@@ -36,13 +40,26 @@ const App = (): JSX.Element => {
         </h1>
         <p className="text-sm mt-3">Where shall we check?</p>
 
-        <div className="flex mt-10 md:mt-4 text-zinc-900">
+        <div className="relative flex mt-10 md:mt-4 text-zinc-900">
           <input
             type="text"
             value={term}
             className="px-2 py-1 rounded-l-md border-2 border-white "
             onChange={onInputChange}
           />
+
+          <ul className="absolute top-9 bg-white ml-1 rounded-b-md">
+            {options.map((option: optionType, index: number) => (
+              <li key={option.name + '-' + index}>
+                <button
+                  className="text-left text-sm w-full hover:bg-zinc-700 hover:text-white px-2 py-1 cursor-pointer"
+                  onClick={() => onOptionSelect(option)}
+                >
+                  {option.name}
+                </button>
+              </li>
+            ))}
+          </ul>
 
           <button
             className="rounded-r-md border-2
