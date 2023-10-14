@@ -3,13 +3,21 @@ import { ChangeEvent, useState } from 'react'
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>('')
 
-  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setTerm(event.target.value)
-    console.log(term)
-
+  const getSearchOptions = (value: string) => {
     fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${term}&limit=5&appid=${process.env.REACT_APP_API_KEY}`
+      `http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${
+        process.env.REACT_APP_API_KEY
+      }`
     )
+  }
+
+  const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+    setTerm(value)
+
+    if (value === '') return
+
+    getSearchOptions(value)
   }
 
   // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
