@@ -1,8 +1,10 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { optionType } from './types'
 
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>('')
+
+  const [city, setCity] = useState<optionType | null>(null)
 
   const [options, setOptions] = useState<[]>([])
 
@@ -19,13 +21,34 @@ const App = (): JSX.Element => {
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim()
     setTerm(value)
-
     if (value === '') return
-
     getSearchOptions(value)
   }
 
-  const onOptionSelect = (option: optionType) => {}
+  const getForecast = (city: optionType) => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&untis=metric&appid=${process.env.REACT_APP_API_KEY}`
+    )
+      .then((response) => response.json())
+      .then((data) => console.log({ data }))
+    // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+  }
+  const onSubmit = () => {
+    if (!city) return
+    getForecast(city)
+  }
+
+  const onOptionSelect = (option: optionType) => {
+    setCity(option)
+    // console.log(option.name)
+  }
+
+  useEffect(() => {
+    if (city) {
+      setTerm(city.name)
+      setOptions([])
+    }
+  }, [city])
 
   // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 
@@ -68,6 +91,7 @@ const App = (): JSX.Element => {
                    hover:border-teal-500
                    hover:text-teal-500
                      px-2 py-1 cursor-pointer"
+            onClick={onSubmit}
           >
             Search
           </button>
