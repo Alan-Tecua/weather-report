@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from 'react'
 
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>('')
+  const [options, setOptions] = useState<[]>()
 
   const getSearchOptions = (value: string) => {
     fetch(
@@ -9,10 +10,12 @@ const App = (): JSX.Element => {
         process.env.REACT_APP_API_KEY
       }`
     )
+      .then((response) => response.json())
+      .then((data) => setOptions(data)) //console.log({ data }) --> check lat and lon are visible
   }
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
+    const value = event.target.value.trim()
     setTerm(value)
 
     if (value === '') return
@@ -40,6 +43,7 @@ const App = (): JSX.Element => {
             className="px-2 py-1 rounded-l-md border-2 border-white "
             onChange={onInputChange}
           />
+
           <button
             className="rounded-r-md border-2
                    border-zinc-300
