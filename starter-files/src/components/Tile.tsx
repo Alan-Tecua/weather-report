@@ -22,7 +22,17 @@ const icons = {
 }
 
 const Tile = ({ icon, title, info, description }: Props): JSX.Element => {
-  return <div></div>
+  const Icon = icons[icon]
+  return (
+    <article className="w-[140px] h-[130px] bg-zinc-900/20 backdrop-blur-lg text-xs font-bold items-center rounded drop-shadow-lg p-2 mb-5 flex flex-col justify-between">
+      <div className="flex items-center text-sm font-bold">
+        <Icon />
+        <h4>{title}</h4>
+      </div>
+      <h3 className="text-lg">{info}</h3>
+      <p className="text-xs font-bold">{description}</p>
+    </article>
+  )
 }
 
 export default Tile
