@@ -17,7 +17,7 @@ export const getHumidityValue = (level: number): string => {
   if (level <= 55) return 'Dry and comfortable'
   if (level > 55 && level <= 65) return 'A bit uncomfortable, sticky feeling'
 
-  return 'Lots of moisture, uncomfortable air'
+  return 'Lots of moisture, bad for your hair and skin'
 }
 
 export const getVisibilityValue = (number: number): string => {
@@ -26,7 +26,7 @@ export const getVisibilityValue = (number: number): string => {
   if (number > 500 && number <= 2000) return 'Expect some fog'
   if (number > 2000 && number <= 9000) return 'Expect some haze'
 
-  return 'Very clear day'
+  return 'Very clear day, lucky them'
 }
 
 export const getSunTime = (timestamp: number): string => {

@@ -1,4 +1,4 @@
-import { getSunTime, getWindDirection } from '../helpers'
+import { getHumidityValue, getSunTime, getWindDirection } from '../helpers'
 import { forecastType } from '../types'
 import Tile from './Tile'
 import Sunrise from './Icons/Sunrise'
@@ -65,6 +65,7 @@ const Forecast = ({ data }: Props): JSX.Element => {
             <Sunset />
             <span className="mt-2">{getSunTime(data.sunset)}</span>
           </div>
+
           <Tile
             icon="wind"
             title="Wind"
@@ -72,6 +73,24 @@ const Forecast = ({ data }: Props): JSX.Element => {
             description={`${getWindDirection(
               Math.round(today.wind.deg)
             )}, gusts ${today.wind.gust.toFixed(1)}km/h`}
+          />
+
+          <Tile
+            icon="feels"
+            title="Feels like"
+            info={<Degree temp={Math.round(today.main.feels_like)} />}
+            description={`Feels ${
+              Math.round(today.main.feels_like) < Math.round(today.main.temp)
+                ? 'colder'
+                : 'warmer'
+            }`}
+          />
+
+          <Tile
+            icon="humidity"
+            title="Humidity"
+            info={`${today.main.humidity}%`}
+            description={getHumidityValue(today.main.humidity)}
           />
         </section>
       </div>
