@@ -1,4 +1,6 @@
 import { forecastType } from '../types'
+import Sunrise from './Icons/Sunrise'
+import Sunset from './Icons/Sunset'
 
 type Props = {
   data: forecastType
@@ -38,16 +40,27 @@ const Forecast = ({ data }: Props): JSX.Element => {
               className="inline-block text-center w-[50px] flex-shrink-0"
               key={i}
             >
-              <p>{i === 0 ? 'Now' : new Date(item.dt * 1000).getHours()}</p>
+              <p className="text-sm">
+                {i === 0 ? 'Now' : new Date(item.dt * 1000).getHours()}
+              </p>
               <img
                 src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
                 alt={`weather-icon-${item.weather[0].description}`}
               />
-              <p>
+              <p className="text-sm font-bold">
                 <Degree temp={Math.round(item.main.temp)} />
               </p>
             </div>
           ))}
+        </section>
+
+        <section className="flex justify-between text-stone-100">
+          <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-zinc-900/20 backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5">
+            <Sunrise />
+          </div>
+          <div className="w-[140px] text-xs font-bold flex flex-col items-center bg-zinc-900/20 backdrop-blur-lg rounded drop-shadow-lg py-4 mb-5">
+            <Sunset />
+          </div>
         </section>
       </div>
     </div>
