@@ -29,6 +29,7 @@ const useForecast = () => {
     fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${city.lat}&lon=${city.lon}&units=metric&appid=${process.env.REACT_APP_API_KEY}`
       // `https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&untis=metric&appid=${process.env.REACT_APP_API_KEY}` --> gives the weather
+      // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
     )
       .then((response) => response.json())
       // .then((data) => setForecast(data)) --> give all data
@@ -67,8 +68,6 @@ const useForecast = () => {
     onOptionSelect,
     onSubmit,
   }
-
-  // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 }
 
 export default useForecast
