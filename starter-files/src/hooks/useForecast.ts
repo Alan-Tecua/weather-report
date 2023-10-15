@@ -14,7 +14,8 @@ const useForecast = () => {
       }`
     )
       .then((response) => response.json())
-      .then((data) => setOptions(data)) //console.log({ data }) --> check lat and lon are visible
+      .then((data) => setOptions(data))
+      .catch((event) => console.log(event)) //console.log({ data }) --> check lat and lon are visible
   }
 
   const onInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,7 @@ const useForecast = () => {
         }
         setForecast(forecastData)
       })
+      .catch((event) => console.log(event))
     // https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
   }
   const onSubmit = () => {

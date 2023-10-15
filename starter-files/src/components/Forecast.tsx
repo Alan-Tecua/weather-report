@@ -123,6 +123,7 @@ const Forecast = ({ data }: Props): JSX.Element => {
           />
         </section>
       </div>
+      <div className="text-center"></div>
     </div>
   )
 }
